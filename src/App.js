@@ -8,19 +8,27 @@ function App() {
       .then((res) => res.json())
       .then((data) => setStudents(data));
   }, []);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const Name = e.target.name.value;
+    const favSub = e.target.favSub.value;
+    console.log(Name, favSub);
+    e.target.reset();
+    
+  };
   return (
     <div className="App">
       <h1>Simple node js for client site</h1>
       <h2>{students.length}</h2>
       {students.map((student) => (
-        <ul style={{ listStyleType: "square" }}>
+        <ul key={student.id} style={{ listStyleType: "square" }}>
           <li key={student.id}>
-            {student.id} -----------{student.name}----------
+            {student.id} .{student.name}----
             {student.favSub}
           </li>
         </ul>
       ))}
-      <form>
+      <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Name" name="name" />
         <br />
         <input type="text" placeholder="Fav Subject" name="favSub" /> <br />
