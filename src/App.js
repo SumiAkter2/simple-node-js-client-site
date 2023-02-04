@@ -12,10 +12,21 @@ function App() {
     e.preventDefault();
     const Name = e.target.name.value;
     const favSub = e.target.favSub.value;
-    console.log(Name, favSub);
+    const students = { Name, favSub };
+    console.log(students);
     e.target.reset();
-    
   };
+  useEffect(() => {
+    fetch("http://localhost:5000/students", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(students),
+    })
+      .then((res) => res.json())
+      .then((data) => setStudents(data));
+  }, [students]);
   return (
     <div className="App">
       <h1>Simple node js for client site</h1>
