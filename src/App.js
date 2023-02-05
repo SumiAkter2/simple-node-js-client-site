@@ -35,13 +35,12 @@ function App() {
     <div className="App">
       <h1>Simple node js for client site</h1>
       <h2>{students.length}</h2>
-      {students.map((student) => (
-        <ul key={student.id} style={{ listStyleType: "square" }}>
-          <li key={student.id}>
-            {student.id} .{student.name ? student.name : "Undefined"}----
-            {student.favSub}
-          </li>
-        </ul>
+      {students.map((student, index) => (
+        <li key={student._id}>
+          {index + 1}... .{student.name ? student.name : "Undefined"}----
+          {student._id.slice(-2)}----
+          {student.favSub}
+        </li>
       ))}
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Name" name="name" />
