@@ -10,11 +10,11 @@ function App() {
   }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
-    const Name = e.target.name.value;
+    const name = e.target.name.value;
     const favSub = e.target.favSub.value;
-    const student = { Name, favSub };
+    const student = { name, favSub };
     console.log(student);
-    // e.target.reset();
+    e.target.reset();
     fetch("http://localhost:5000/students", {
       method: "POST",
       headers: {
@@ -23,7 +23,11 @@ function App() {
       body: JSON.stringify(student),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        console.log(data);
+        const newStudent = [...students, data];
+        setStudents(newStudent);
+      })
       .catch((err) => console.log(err));
   };
 
@@ -34,7 +38,7 @@ function App() {
       {students.map((student) => (
         <ul key={student.id} style={{ listStyleType: "square" }}>
           <li key={student.id}>
-            {student.id} .{student.name}----
+            {student.id} .{student.name ? student.name : "Undefined"}----
             {student.favSub}
           </li>
         </ul>
